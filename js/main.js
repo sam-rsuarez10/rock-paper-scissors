@@ -6,8 +6,21 @@ function getComputerChoice() {
 }
 
 function getPlayerSelection() {
-    /* Take rock, papaer, scissors input from input and return it */
-    return 0;
+    /* Take rock, paper, scissors input from input and return it */
+    let is_valid = false;
+    let userInput = '';
+    let lowerInput = '';
+    while(!is_valid){
+        userInput = prompt("Type 'rock', 'paper' or 'scissors': ")
+        lowerInput = userInput.toLowerCase();
+
+        if(lowerInput != 'rock' && lowerInput != 'paper' && lowerInput != 'scissors') {
+            alert("Type a valid input");
+        } else {
+            is_valid = true;
+        }
+    }
+    return lowerInput;
 }
 
 function playRound(playerSelection, computerSelection) {
@@ -33,7 +46,6 @@ function playRound(playerSelection, computerSelection) {
     }
 }
 
-const player = 'paper';
+const player = getPlayerSelection();
 const computer = getComputerChoice();
-
 console.log(playRound(player, computer));
