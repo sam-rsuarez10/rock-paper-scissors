@@ -11,13 +11,16 @@ function playRound(playerSelection, computerSelection) {
         || (playerSelection == 'scissors' && computerSelection == 'paper')
         || (playerSelection == 'paper' && computerSelection) == 'rock'){
         // win scenario
-        return `You won :D ${playerSelection} beats ${computerSelection}`;
+        console.log(`You won :D ${playerSelection} beats ${computerSelection}`)
+        return 'w';
     } else if (playerSelection == computerSelection){
         // draw scenario
-        return 'Draw :/';
+        console.log('Draw :/')
+        return 'd';
     } else {
         // lose scenario
-        return `You lose :( ${computerSelection} beats ${playerSelection}`
+        console.log(`You lose :( ${computerSelection} beats ${playerSelection}`)
+        return 'l';
     }
 }
 
