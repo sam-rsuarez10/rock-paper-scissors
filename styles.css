@@ -1,0 +1,7 @@
+.options {
+    padding-top: 30rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+}

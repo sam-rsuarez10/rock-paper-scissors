@@ -2,15 +2,16 @@ import {getComputerChoice, getPlayerSelection} from './computer-player-selection
 import {playRound} from './single-game.js';
 
 
-function game() {
-    const rounds = 5;
+function game(event) {
+    console.clear();
+    const rounds = 1;
     let scoreboard = { user: 0, computer: 0 };
     let round = 1;
     while(round <= rounds){
         console.log('\n\n');
         console.log(`Round ${round}`);
         // Make selections
-        let player = getPlayerSelection();
+        let player = event.target.textContent.toLowerCase();
         let computer = getComputerChoice();
         // play game
         let winner = playRound(player, computer);
@@ -36,4 +37,9 @@ function game() {
     }
 }
 
-game();
+
+// capture buttons
+const buttons = document.querySelectorAll('button');
+buttons.forEach (button => {
+    button.addEventListener('click', game);
+})
