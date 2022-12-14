@@ -1,4 +1,4 @@
-function playRound(playerSelection, computerSelection) {
+function playRound(playerSelection, computerSelection, displayBox) {
     /* Given player and computer selections, performs logic to
     decide winner */
 
@@ -6,20 +6,28 @@ function playRound(playerSelection, computerSelection) {
         -rock beats scissors 
         -scissors beats paper
         -paper beats rock */
-
     if ((playerSelection == 'rock' && computerSelection == 'scissors') 
         || (playerSelection == 'scissors' && computerSelection == 'paper')
         || (playerSelection == 'paper' && computerSelection) == 'rock'){
         // win scenario
-        console.log(`You won :D ${playerSelection} beats ${computerSelection}`)
+        displayBox.classList.add("alert-success");
+        displayBox.classList.remove("alert-danger");
+        displayBox.classList.remove("alert-warning");
+        displayBox.textContent = `You won :D ${playerSelection} beats ${computerSelection}`; 
         return 'w';
     } else if (playerSelection == computerSelection){
         // draw scenario
-        console.log('Draw :/')
+        displayBox.classList.remove("alert-success");
+        displayBox.classList.add("alert-warning");
+        displayBox.classList.remove("alert-danger");
+        displayBox.textContent = 'Draw :/';
         return 'd';
     } else {
         // lose scenario
-        console.log(`You lose :( ${computerSelection} beats ${playerSelection}`)
+        displayBox.classList.remove("alert-success");
+        displayBox.classList.add("alert-danger");
+        displayBox.classList.remove("alert-warning");
+        displayBox.textContent = `You lose :( ${computerSelection} beats ${playerSelection}`;
         return 'l';
     }
 }

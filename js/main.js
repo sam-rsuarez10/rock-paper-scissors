@@ -1,10 +1,15 @@
 import {getComputerChoice, getPlayerSelection} from './computer-player-selections.js'
 import {playRound} from './single-game.js';
 
+const messageBox = document.querySelector("#message-box");
+messageBox.textContent = '';
 
 function game(event) {
-    console.clear();
-    const rounds = 1;
+    // player and computer selections
+    let player = event.target.textContent.toLowerCase();
+    let computer = getComputerChoice();
+    playRound(player, computer, messageBox);
+    /*const rounds = 1;
     let scoreboard = { user: 0, computer: 0 };
     let round = 1;
     while(round <= rounds){
@@ -14,7 +19,7 @@ function game(event) {
         let player = event.target.textContent.toLowerCase();
         let computer = getComputerChoice();
         // play game
-        let winner = playRound(player, computer);
+        let winner = playRound(player, computer, messageBox);
         if (winner == 'w') {
             // User won
             scoreboard.user += 1;
@@ -31,10 +36,14 @@ function game(event) {
 
     // decide overall winner
     if (scoreboard.user > scoreboard.computer) {
-        console.log('Congrats!!! You won it all :D');
+        messageBox.classList.add("alert-success");
+        messageBox.classList.remove("alert-danger");
+        messageBox.textContent = 'Congrats!!! You won it all :D'; 
     } else {
-        console.log('Sorry you lose :(, try again');
-    }
+        messageBox.classList.remove("alert-success");
+        messageBox.classList.add("alert-danger");
+        messageBox.textContent = 'Sorry you lose :(, try again';
+    }*/
 }
 
 

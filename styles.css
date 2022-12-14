@@ -5,3 +5,8 @@
     align-items: center;
     gap: 2rem;
 }
+
+#message-box {
+    margin-top: 2rem;
+    font-size: 1.15rem;
+}
