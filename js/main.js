@@ -1,5 +1,5 @@
 import {getComputerChoice, getPlayerSelection} from './computer-player-selections.js'
-import {playRound} from './single-game.js';
+import {playRound} from './play-round.js';
 
 const messageBox = document.querySelector("#message-box");
 messageBox.textContent = '';

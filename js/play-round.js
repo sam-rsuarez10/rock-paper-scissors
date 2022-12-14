@@ -1,3 +1,6 @@
+import { updateMessage } from "./update-message.js";
+
+
 function playRound(playerSelection, computerSelection, displayBox) {
     /* Given player and computer selections, performs logic to
     decide winner */
@@ -10,23 +13,17 @@ function playRound(playerSelection, computerSelection, displayBox) {
         || (playerSelection == 'scissors' && computerSelection == 'paper')
         || (playerSelection == 'paper' && computerSelection) == 'rock'){
         // win scenario
-        displayBox.classList.add("alert-success");
-        displayBox.classList.remove("alert-danger");
-        displayBox.classList.remove("alert-warning");
+        updateMessage(true, false, false, displayBox);
         displayBox.textContent = `You won :D ${playerSelection} beats ${computerSelection}`; 
         return 'w';
     } else if (playerSelection == computerSelection){
         // draw scenario
-        displayBox.classList.remove("alert-success");
-        displayBox.classList.add("alert-warning");
-        displayBox.classList.remove("alert-danger");
+        updateMessage(false, true, false, displayBox);
         displayBox.textContent = 'Draw :/';
         return 'd';
     } else {
         // lose scenario
-        displayBox.classList.remove("alert-success");
-        displayBox.classList.add("alert-danger");
-        displayBox.classList.remove("alert-warning");
+        updateMessage(false, false, true, displayBox);
         displayBox.textContent = `You lose :( ${computerSelection} beats ${playerSelection}`;
         return 'l';
     }
