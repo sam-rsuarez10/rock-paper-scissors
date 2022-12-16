@@ -1,8 +1,8 @@
 import {getComputerChoice, getPlayerSelection} from './computer-player-selections.js'
 import {playRound} from './play-round.js';
 
-/*const messageBox = document.querySelector("#message-box");
-messageBox.textContent = '';*/
+const messageBox = document.querySelector("#message-box");
+messageBox.textContent = '';
 
 const beginGameButton = document.querySelector("#begin-game");
 const optionsDiv = document.querySelector(".options");
@@ -19,7 +19,7 @@ beginGameButton.addEventListener("click", (event) => {
     const inputField = document.createElement("input");
     inputField.placeholder = "Type number of rounds";
     inputField.classList.add("form-control");
-    inputDiv.setAttribute("type", "number");
+    inputField.setAttribute("type", "number");
 
     const confirmBtn = document.createElement("button");
     confirmBtn.textContent = "Confirm";
@@ -33,6 +33,16 @@ beginGameButton.addEventListener("click", (event) => {
     // append input div to options div
     optionsDiv.appendChild(inputDiv);
     optionsDiv.classList.add("col-lg-4", "offset-md-4");
+
+    confirmBtn.addEventListener("click", () => {
+        if(inputField.value && inputField.value != 0){
+            // input is valid
+            console.log(parseInt(inputField.value));
+        } else {
+            inputField.value = null;
+            alert("Please, type valid number");
+        }
+    });
 
 });
 
