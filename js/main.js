@@ -1,5 +1,7 @@
 import {getComputerChoice, getPlayerSelection} from './computer-player-selections.js'
 import {playRound} from './play-round.js';
+import { updateMessage } from './update-message.js';
+import { createGameBtn } from './create-game-btns.js';
 
 const messageBox = document.querySelector("#message-box");
 messageBox.textContent = '';
@@ -35,12 +37,22 @@ beginGameButton.addEventListener("click", (event) => {
     optionsDiv.classList.add("col-lg-4", "offset-md-4");
 
     confirmBtn.addEventListener("click", () => {
-        if(inputField.value && inputField.value != 0){
+        if(inputField.value && inputField.value != 0 && inputField.value <= 10){
             // input is valid
-            console.log(parseInt(inputField.value));
+            // remove any previous error message
+            messageBox.classList.remove("alert-danger");
+            messageBox.textContent = "";
+
+            rounds = inputField.value;
+            inputDiv.style.display = "none"; // remove rounds input
+            // create rock, paper, scissors buttons
+            const buttons = createGameBtn(optionsDiv);
+            buttons.forEach(button => button.addEventListener("click", game));
         } else {
             inputField.value = null;
-            alert("Please, type valid number");
+            updateMessage(false, false, true, messageBox);
+            messageBox.textContent = "Please, type a valid number";
+            //alert("Please, type valid number");
         }
     });
 
