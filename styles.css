@@ -1,3 +1,7 @@
+body {
+    background-color: darkblue;
+}
+
 .options {
     padding-top: 30rem;
     display: flex;
