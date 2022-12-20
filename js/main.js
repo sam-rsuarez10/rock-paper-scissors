@@ -6,9 +6,13 @@ import { createGameBtn } from './create-game-btns.js';
 const messageBox = document.querySelector("#message-box");
 messageBox.textContent = '';
 
+const scoreboardBox = document.querySelector('#scoreboard-box');
+scoreboardBox.textContent = '';
+
 const beginGameButton = document.querySelector("#begin-game");
 const optionsDiv = document.querySelector(".options");
-let rounds = 0;
+let winningPoint = 0;
+let scoreboard = { user: 0, computer: 0 };
 
 beginGameButton.addEventListener("click", (event) => {
     const beginBtn = event.target;
@@ -19,7 +23,7 @@ beginGameButton.addEventListener("click", (event) => {
     inputDiv.classList.add("input-group", "mb-3");
 
     const inputField = document.createElement("input");
-    inputField.placeholder = "Type number of rounds";
+    inputField.placeholder = "Number of points to win";
     inputField.classList.add("form-control");
     inputField.setAttribute("type", "number");
 
@@ -43,61 +47,49 @@ beginGameButton.addEventListener("click", (event) => {
             messageBox.classList.remove("alert-danger");
             messageBox.textContent = "";
 
-            rounds = inputField.value;
+            winningPoint = inputField.value;
             inputDiv.style.display = "none"; // remove rounds input
             // create rock, paper, scissors buttons
             const buttons = createGameBtn(optionsDiv);
+            scoreboardBox.classList.add("alert-info");
+            scoreboardBox.textContent = `you: ${scoreboard.user}   computer: ${scoreboard.computer}`
             buttons.forEach(button => button.addEventListener("click", game));
         } else {
             inputField.value = null;
             updateMessage(false, false, true, messageBox);
             messageBox.textContent = "Please, type a valid number";
-            //alert("Please, type valid number");
         }
     });
 
 });
 
 function game(event) {
-    // player and computer selections
+    /* logic to continue game until player or 
+    computer reach the number of points to win */
+    // Make selections
     let player = event.target.textContent.toLowerCase();
     let computer = getComputerChoice();
-    playRound(player, computer, messageBox);
-    /*const rounds = 1;
-    let scoreboard = { user: 0, computer: 0 };
-    let round = 1;
-    while(round <= rounds){
-        console.log('\n\n');
-        console.log(`Round ${round}`);
-        // Make selections
-        let player = event.target.textContent.toLowerCase();
-        let computer = getComputerChoice();
-        // play game
-        let winner = playRound(player, computer, messageBox);
-        if (winner == 'w') {
-            // User won
-            scoreboard.user += 1;
-        } else if (winner == 'l') {
-            // User lose
-            scoreboard.computer += 1;
-        } else {
-            // Draw, repeat round
-            round--;
-        }
-        console.log(scoreboard);
-        round++;
-    }
+    // play game
+    let winner = playRound(player, computer, messageBox);
+    if (winner == 'w') {
+        // User won
+        scoreboard.user += 1;
+    } else if (winner == 'l') {
+        // User lose
+        scoreboard.computer += 1;
+    } 
+
+    // update scoreboard
+    scoreboardBox.textContent = `you: ${scoreboard.user}   computer: ${scoreboard.computer}`
 
     // decide overall winner
-    if (scoreboard.user > scoreboard.computer) {
-        messageBox.classList.add("alert-success");
-        messageBox.classList.remove("alert-danger");
+    if (scoreboard.user == winningPoint) {
+        updateMessage(true, false, false, messageBox);
         messageBox.textContent = 'Congrats!!! You won it all :D'; 
-    } else {
-        messageBox.classList.remove("alert-success");
-        messageBox.classList.add("alert-danger");
+    } else if(scoreboard.computer == winningPoint){
+        updateMessage(false, false, true, messageBox);
         messageBox.textContent = 'Sorry you lose :(, try again';
-    }*/
+    }
 }
 
 
