@@ -2,12 +2,17 @@ import {getComputerChoice, getPlayerSelection} from './computer-player-selection
 import {playRound} from './play-round.js';
 import { updateMessage } from './update-message.js';
 import { createGameBtn } from './create-game-btns.js';
+import { createResetBtn } from './create-reset-game-btn.js';
 
 const messageBox = document.querySelector("#message-box");
 messageBox.textContent = '';
 
 const scoreboardBox = document.querySelector('#scoreboard-box');
 scoreboardBox.textContent = '';
+
+const reloadDiv = document.querySelector("#reload-option");
+
+let gameActive = false;
 
 const beginGameButton = document.querySelector("#begin-game");
 const optionsDiv = document.querySelector(".options");
@@ -52,7 +57,8 @@ beginGameButton.addEventListener("click", (event) => {
             // create rock, paper, scissors buttons
             const buttons = createGameBtn(optionsDiv);
             scoreboardBox.classList.add("alert-info");
-            scoreboardBox.textContent = `you: ${scoreboard.user}   computer: ${scoreboard.computer}`
+            scoreboardBox.textContent = `you: ${scoreboard.user}   computer: ${scoreboard.computer}`;
+            gameActive = true;
             buttons.forEach(button => button.addEventListener("click", game));
         } else {
             inputField.value = null;
@@ -66,6 +72,7 @@ beginGameButton.addEventListener("click", (event) => {
 function game(event) {
     /* logic to continue game until player or 
     computer reach the number of points to win */
+
     // Make selections
     let player = event.target.textContent.toLowerCase();
     let computer = getComputerChoice();
@@ -86,9 +93,17 @@ function game(event) {
     if (scoreboard.user == winningPoint) {
         updateMessage(true, false, false, messageBox);
         messageBox.textContent = 'Congrats!!! You won it all :D'; 
+        gameActive = false;
     } else if(scoreboard.computer == winningPoint){
         updateMessage(false, false, true, messageBox);
         messageBox.textContent = 'Sorry you lose :(, try again';
+        gameActive = false;
+    }
+
+    if (!gameActive) {
+         // create reset game button
+        const resetBtn = createResetBtn(reloadDiv);
+        resetBtn.addEventListener("click", () => location.reload());
     }
 }
 
